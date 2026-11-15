@@ -4,20 +4,22 @@
 <meta property="og:title" content="Dragon Egg Twist Fidget · the catalog"><meta property="og:description" content="an egg that turns into a dragon. $16.99, shipping included."><meta property="og:image" content="https://ae-pic-a1.aliexpress-media.com/kf/S49c29a79d9324dcfbbafaf4ea3a16733W.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <style>
-:root{--bg:#0f0e0c;--card:#1a1815;--ink:#f4efe6;--muted:#a59d90;--accent:#ffb547;--line:#2c2924}
-@media (prefers-color-scheme: light){:root{--bg:#f6f2ea;--card:#fffdf8;--ink:#1a1714;--muted:#6b6358;--accent:#d9780f;--line:#e6dfd2}}
+:root{--bg:#0f0e0c;--card:#1a1815;--ink:#f4efe6;--muted:#a59d90;--accent:#ffb547;--hot:#ff3b30;--line:#2c2924}
+@media (prefers-color-scheme: light){:root{--bg:#f6f2ea;--card:#fffdf8;--ink:#1a1714;--muted:#6b6358;--accent:#d9780f;--hot:#e0201a;--line:#e6dfd2}}
 *{box-sizing:border-box}html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:hidden}
 a{color:inherit}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 header{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 8px}
-.logo{font-weight:800;letter-spacing:-.02em;font-size:22px;text-decoration:none}
+.logo{font-weight:800;letter-spacing:-.02em;font-size:22px;text-decoration:none;white-space:nowrap}
 .logo span{color:var(--accent)}
 .tag{color:var(--muted);font-size:14px}
+@media(max-width:520px){.tag{display:none}.grid{grid-template-columns:1fr 1fr;gap:10px}.card h3{font-size:14px}.card .b{padding:10px}.ticker .lbl{font-size:11px;padding:0 10px}.track{padding-left:110px}}
 h1{font-size:clamp(28px,6vw,48px);line-height:1.05;letter-spacing:-.03em;margin:28px 0 8px}
-.lede{color:var(--muted);margin:0 0 28px;max-width:560px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding-bottom:48px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .15s}
+h2{font-size:22px;letter-spacing:-.02em;margin:36px 0 12px;display:flex;align-items:center;gap:10px}
+.lede{color:var(--muted);margin:0 0 20px;max-width:560px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .15s;position:relative}
 .card:hover{transform:translateY(-3px)}
 .card img{width:100%;aspect-ratio:1;object-fit:cover;background:#222}
 .card .b{padding:12px 14px 14px}
@@ -25,27 +27,75 @@ h1{font-size:clamp(28px,6vw,48px);line-height:1.05;letter-spacing:-.03em;margin:
 .card p{margin:0;color:var(--muted);font-size:13px}
 .price{font-weight:800;margin-top:8px}
 .price small{color:var(--muted);font-weight:500}
+.off{position:absolute;top:10px;left:10px;background:var(--hot);color:#fff;font-weight:900;font-size:13px;padding:3px 8px;border-radius:999px;animation:pulse 1.4s infinite}
+
+/* ---- the slash ---- */
+.was{position:relative;display:inline-block;color:var(--muted);font-weight:700}
+.was::after{content:"";position:absolute;left:-6%;top:52%;height:3px;width:0;background:var(--hot);border-radius:3px;transform:rotate(-14deg);transform-origin:left center;box-shadow:0 0 8px var(--hot);animation:slash .45s .35s cubic-bezier(.7,0,.3,1) forwards}
+.loop .was::after{animation:slashloop 3.2s .2s infinite}
+.now{display:inline-block;color:var(--accent);font-weight:900;animation:pop .55s .8s both,jiggle 2.6s 1.6s infinite}
+.big .was{font-size:22px}.big .now{font-size:44px;margin-left:8px}
+@keyframes slash{to{width:112%}}
+@keyframes slashloop{0%{width:0}12%{width:112%}88%{width:112%;opacity:1}100%{width:112%;opacity:0}}
+@keyframes pop{0%{transform:scale(0) rotate(-12deg);opacity:0}65%{transform:scale(1.3) rotate(5deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes jiggle{0%,78%,100%{transform:none}82%{transform:rotate(-7deg) scale(1.1)}86%{transform:rotate(6deg) translateY(-4px)}90%{transform:rotate(-4deg)}94%{transform:rotate(2deg) translateY(-2px)}}
+@keyframes pulse{50%{transform:scale(1.08)}}
+
+/* ---- rolling ticker ---- */
+.ticker{background:linear-gradient(90deg,#2a0d0a,#3a120c,#2a0d0a);border-bottom:1px solid #4a1a12;overflow:hidden;position:relative;color:#fbe9df}
+.ticker .lbl{position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;padding:0 14px;background:var(--hot);color:#fff;font-weight:900;font-size:13px;letter-spacing:.04em;text-transform:uppercase;box-shadow:8px 0 16px #2a0d0a}
+.track{display:flex;width:max-content;animation:roll var(--dur,40s) linear infinite;padding-left:150px}
+.ticker:hover .track{animation-play-state:paused}
+@keyframes roll{to{transform:translateX(-50%)}}
+.ti{display:flex;align-items:center;gap:10px;padding:9px 22px;text-decoration:none;white-space:nowrap;border-right:1px dashed #5a2418}
+.ti img{width:38px;height:38px;border-radius:8px;object-fit:cover}
+.ti .nm{font-weight:700;font-size:14px}
+.ti .was{color:#c9a99b;font-size:13px}
+.ti .now{font-size:18px;color:#ffcf5a}
+.clock{font:700 12px ui-monospace,Menlo,monospace;background:#00000055;border:1px solid #ff3b3066;color:#ffb3a8;padding:2px 7px;border-radius:6px}
+
+/* ---- product page ---- */
 .pp{display:grid;grid-template-columns:1fr;gap:24px;padding:12px 0 48px}
 @media(min-width:760px){.pp{grid-template-columns:1.1fr 1fr;gap:40px;padding-top:28px}}
 .pp img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:20px;border:1px solid var(--line);background:#222}
 .pp h1{margin-top:0}
 .hook{color:var(--accent);font-weight:700;text-transform:lowercase;margin:0 0 6px}
-.big{font-size:32px;font-weight:800;margin:14px 0 2px}
+.reg{font-size:32px;font-weight:800;margin:14px 0 2px}
 .ngn{color:var(--muted);margin:0 0 18px}
+.dealbox{border:1px solid #ff3b3066;background:linear-gradient(135deg,#ff3b3014,transparent);border-radius:16px;padding:14px 16px;margin:14px 0 16px}
+.dealbox .top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;font-weight:800;color:var(--hot);text-transform:uppercase;letter-spacing:.04em}
+.dealbox .big{margin:6px 0 0;line-height:1.1}
+.dealbox .ngn{margin:6px 0 0}
 .btn{display:block;text-align:center;background:var(--accent);color:#1a1205;font-weight:800;text-decoration:none;padding:16px;border-radius:14px;font-size:17px}
-.btn.off{background:var(--line);color:var(--muted);pointer-events:none}
+.btn.hot{background:var(--hot);color:#fff}
+.btn.offbtn{background:var(--line);color:var(--muted);pointer-events:none}
 .note{font-size:14px;color:var(--muted);margin-top:16px}
 .note li{margin:4px 0}
 .social{font-size:13px;color:var(--muted)}
-footer{border-top:1px solid var(--line);padding:20px 0 40px;color:var(--muted);font-size:13px}
-</style></head><body><div class="wrap">
+.is-deal .regular{display:none}.not-deal .deal{display:none}
+footer{border-top:1px solid var(--line);padding:20px 0 40px;margin-top:32px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion: reduce){.track{animation-duration:160s}.now,.off{animation:none}.was::after{animation:none;width:112%}}
+</style></head><body><div class="ticker"><span class="lbl">price slash</span><div class="track" style="--dur:60s"><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/galaxy-projector/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S807d0ba954d9455eb2a9672544f98bf8h.png" alt="Galaxy Star Projector" loading="lazy"><span class="nm">Galaxy Star Projector</span><span class="was">$27.99</span><span class="now">$19.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/sunset-lamp/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sbceb47806f384fd087bee4d250ccb25bs.png" alt="Sunset Lamp" loading="lazy"><span class="nm">Sunset Lamp</span><span class="was">$20.99</span><span class="now">$14.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/crystal-dragon/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S04cc1672b03d44289169a227158f2b50c.jpg" alt="Crystal Gem Dragon (60cm)" loading="lazy"><span class="nm">Crystal Gem Dragon (60cm)</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/dragon-egg/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S49c29a79d9324dcfbbafaf4ea3a16733W.jpg" alt="Dragon Egg Twist Fidget" loading="lazy"><span class="nm">Dragon Egg Twist Fidget</span><span class="was">$23.99</span><span class="now">$16.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/neck-fan/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sdfd39cb079384032b4c6d9a224888f5aL.jpg" alt="Foldable Neck + Hand Fan" loading="lazy"><span class="nm">Foldable Neck + Hand Fan</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/magnetic-rings/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sf45693cd45c5472ebbd6a93b0c8b1376v.jpg" alt="Magnetic Fidget Rings (3)" loading="lazy"><span class="nm">Magnetic Fidget Rings (3)</span><span class="was">$18.99</span><span class="now">$12.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/ace-slider/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdceeaa66449eb6ba4c2f7d370646C.jpg" alt="Ace of Spades Metal Slider" loading="lazy"><span class="nm">Ace of Spades Metal Slider</span><span class="was">$23.99</span><span class="now">$16.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/saturn-crystal-ball/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S770c78f1a15d40f197331a86c2d07f8a7.jpg" alt="Saturn Crystal Ball Lamp" loading="lazy"><span class="nm">Saturn Crystal Ball Lamp</span><span class="was">$41.99</span><span class="now">$29.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/eternal-rose/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S2549b3f4ea4d48c883d89d63a83971d1f.jpg" alt="Eternal LED Rose" loading="lazy"><span class="nm">Eternal LED Rose</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/cloud-slides/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S77eeafedaecb456cace06375106efa93k.jpg" alt="Cloud Slides" loading="lazy"><span class="nm">Cloud Slides</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/galaxy-projector/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S807d0ba954d9455eb2a9672544f98bf8h.png" alt="Galaxy Star Projector" loading="lazy"><span class="nm">Galaxy Star Projector</span><span class="was">$27.99</span><span class="now">$19.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/sunset-lamp/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sbceb47806f384fd087bee4d250ccb25bs.png" alt="Sunset Lamp" loading="lazy"><span class="nm">Sunset Lamp</span><span class="was">$20.99</span><span class="now">$14.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/crystal-dragon/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S04cc1672b03d44289169a227158f2b50c.jpg" alt="Crystal Gem Dragon (60cm)" loading="lazy"><span class="nm">Crystal Gem Dragon (60cm)</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/dragon-egg/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S49c29a79d9324dcfbbafaf4ea3a16733W.jpg" alt="Dragon Egg Twist Fidget" loading="lazy"><span class="nm">Dragon Egg Twist Fidget</span><span class="was">$23.99</span><span class="now">$16.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/neck-fan/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sdfd39cb079384032b4c6d9a224888f5aL.jpg" alt="Foldable Neck + Hand Fan" loading="lazy"><span class="nm">Foldable Neck + Hand Fan</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/magnetic-rings/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sf45693cd45c5472ebbd6a93b0c8b1376v.jpg" alt="Magnetic Fidget Rings (3)" loading="lazy"><span class="nm">Magnetic Fidget Rings (3)</span><span class="was">$18.99</span><span class="now">$12.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/ace-slider/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/Sa09cdceeaa66449eb6ba4c2f7d370646C.jpg" alt="Ace of Spades Metal Slider" loading="lazy"><span class="nm">Ace of Spades Metal Slider</span><span class="was">$23.99</span><span class="now">$16.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/saturn-crystal-ball/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S770c78f1a15d40f197331a86c2d07f8a7.jpg" alt="Saturn Crystal Ball Lamp" loading="lazy"><span class="nm">Saturn Crystal Ball Lamp</span><span class="was">$41.99</span><span class="now">$29.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/eternal-rose/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S2549b3f4ea4d48c883d89d63a83971d1f.jpg" alt="Eternal LED Rose" loading="lazy"><span class="nm">Eternal LED Rose</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a><a class="ti loop" data-start="1794758400000" data-ends="1794902340000" href="../../p/cloud-slides/index.html"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S77eeafedaecb456cace06375106efa93k.jpg" alt="Cloud Slides" loading="lazy"><span class="nm">Cloud Slides</span><span class="was">$34.99</span><span class="now">$24.99</span><span class="clock">--:--:--</span></a></div></div><div class="wrap">
 <header><a class="logo" href="../../index.html">the catalog<span>.</span></a><span class="tag">things you saw on your timeline. delivered.</span></header>
-<div class="pp"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S49c29a79d9324dcfbbafaf4ea3a16733W.jpg" alt="Dragon Egg Twist Fidget">
+<div class="pp"><img referrerpolicy="no-referrer" src="https://ae-pic-a1.aliexpress-media.com/kf/S49c29a79d9324dcfbbafaf4ea3a16733W.jpg" alt="Dragon Egg Twist Fidget" loading="lazy">
 <div><p class="hook">an egg that turns into a dragon</p><h1>Dragon Egg Twist Fidget</h1><p>A 3D-printed egg that twists open and unfolds. It&#x27;s impossible to put down.</p>
 <p class="social">10,000+ sold worldwide</p>
-<div class="big">$16.99</div><p class="ngn">₦24,500 · shipping included</p>
-<span class="btn off">orders open soon</span>
+<div class="dealwrap is-deal" data-start="1794758400000" data-ends="1794902340000"><div class="deal"><div class="dealbox"><div class="top"><span>🔥 price slash · -29%</span><span>ends in <span class="clock">--:--:--</span></span></div>
+<div class="big"><span class="was">$23.99</span><span class="now">$16.99</span></div>
+<p class="ngn"><s>₦35,000</s> → ₦24,500 · shipping included</p></div>
+<span class="btn offbtn">orders open soon</span></div><div class="regular"><div class="reg">$23.99</div><p class="ngn">₦35,000 · shipping included</p>
+<span class="btn offbtn">orders open soon</span></div></div>
 <ul class="note"><li>shipping included, with tracking</li><li>delivery in 10–30 days, depending on where you are</li><li>you'll pick your colour at checkout</li><li>if it doesn't arrive, you get a full refund</li></ul>
 </div></div>
 <footer>tracked delivery worldwide · 10–30 days · if it doesn't arrive, you get a full refund.</footer>
-</div></body></html>
+</div><script>
+const fmt=ms=>{if(ms<=0)return'ended';const s=Math.floor(ms/1e3),d=Math.floor(s/86400),h=String(Math.floor(s%86400/3600)).padStart(2,'0'),m=String(Math.floor(s%3600/60)).padStart(2,'0'),x=String(s%60).padStart(2,'0');return(d?d+'d ':'')+h+':'+m+':'+x};
+function tick(){const now=Date.now();
+ document.querySelectorAll('[data-ends]').forEach(el=>{const e=+el.dataset.ends,s=+(el.dataset.start||0),live=now>=s&&now<e;
+  if(el.classList.contains('dealwrap')){el.classList.toggle('is-deal',live);el.classList.toggle('not-deal',!live)}
+  else if(!live){el.remove();return}
+  el.querySelectorAll('.clock').forEach(c=>c.textContent=fmt(e-now))});
+ const t=document.querySelector('.ticker');if(t&&!t.querySelector('.ti'))t.remove();
+ const sec=document.getElementById('slashes');if(sec&&!sec.querySelector('.card'))sec.remove();}
+tick();setInterval(tick,1000);
+</script></body></html>
